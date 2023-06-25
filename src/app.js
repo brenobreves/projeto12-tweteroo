@@ -12,8 +12,6 @@ const tweets = [];
 // Configura uma função pra ser executada quando bater um GET na rota "/"
 app.get("/tweets", (req, res) => {
     const sendObj = [];;
-    let avatar = "";
-
     for(let i = 0 ; i < 10 ; i++){
         if(tweets.length - i - 1 < 0){
             break;
