@@ -3,6 +3,7 @@ import cors from "cors";
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 const PORT = 5000;
 
@@ -27,6 +28,30 @@ app.get("/tweets", (req, res) => {
         )
     }
     res.send(sendObj);
+});
+
+app.post("/sign-up", (req, res) => {
+    const newUser = {
+        username: req.body.username ,
+        avatar: req.body.avatar
+    }
+    users.push(newUser);
+    res.send("Ok");
+});
+
+app.post("/tweets", (req, res) => {
+    const isRegistered = users.some((user) => user.username === req.body.username);
+    if(!isRegistered){
+        res.send("UNAUTHORIZED")
+    }
+    else{
+        let newTweet = {
+            username: req.body.username , 
+            tweet: req.body.tweet
+        };
+        tweets.push(newTweet);
+        res.send("OK");        
+    }
 });
 
 app.listen(PORT , () => console.log(`App rodando na porta ${PORT}`));
